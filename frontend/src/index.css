@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+/* Theme presets & variables */
+:root {
+  --color-primary: #0d9488; /* Teal-600 */
+  --color-primary-hover: #0f766e; /* Teal-700 */
+  --color-primary-light: #2dd4bf; /* Teal-400 */
+  
+  --max-width: 1200px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #404040;
+}
+
+/* Field errors custom class */
+.field-error {
+  color: #ef4444; /* Red-500 */
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* Custom button states */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
+/* Card glassmorphism classes */
+.glass-panel {
+  background: rgba(18, 18, 18, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}

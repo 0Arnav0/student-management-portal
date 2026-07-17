@@ -14,12 +14,9 @@
     "build:shared": "npm run build -w packages/shared",
     "build:backend": "npm run build -w backend",
     "build:frontend": "npm run build -w frontend",
-    "build": "npm run build:shared && npm run build:backend && npm run build:frontend",
-    "test": "vitest run --workspaces",
-    "test:watch": "vitest --workspaces"
+    "build": "npm run build:shared && npm run build:backend && npm run build:frontend"
   },
   "devDependencies": {
-    "typescript": "^5.3.3",
-    "vitest": "^1.3.1"
+    "typescript": "^5.3.3"
   }
 }
