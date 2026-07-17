@@ -100,6 +100,7 @@ export function StudentForm({ onClose, student, meta }: StudentFormProps) {
     onSuccess: () => {
       toast.success(isEdit ? "Student file updated successfully" : "Student enrolled successfully");
       queryClient.invalidateQueries({ queryKey: ["students"] });
+      queryClient.invalidateQueries({ queryKey: ["stats"] });
       onClose();
     },
     onError: (err: any) => {

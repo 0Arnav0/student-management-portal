@@ -128,6 +128,13 @@ export interface StudentMeta {
   photoUploadEnabled: boolean;
 }
 
+export interface StudentStats {
+  total: number;
+  gender: Array<{ gender: Gender; count: number }>;
+  year: Array<{ year: number; count: number }>;
+  courses: Array<{ course: string; count: number }>;
+}
+
 export interface ApiError {
   message: string;
   errors?: Record<string, string>;

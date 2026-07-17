@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "../lib/api.js";
-import { Student, PagedResult, StudentMeta, ApiError } from "@student-portal/shared";
+import { Student, PagedResult, StudentMeta, ApiError, StudentStats } from "@student-portal/shared";
 import { toast } from "sonner";
-import { Search, Plus, Trash2, Edit3, X, SlidersHorizontal, ArrowUpDown } from "lucide-react";
+import { Search, Plus, Trash2, Edit3, X, SlidersHorizontal, ArrowUpDown, Users, BookOpen, Calendar, BarChart3 } from "lucide-react";
 import { StudentForm } from "../components/StudentForm.js";
 
 export function StudentsPage() {
@@ -38,6 +38,12 @@ export function StudentsPage() {
     queryFn: () => apiRequest<StudentMeta>("/api/meta"),
   });
 
+  // Fetch database analytics/statistics
+  const { data: stats } = useQuery<StudentStats>({
+    queryKey: ["stats"],
+    queryFn: () => apiRequest<StudentStats>("/api/students/stats"),
+  });
+
   // Fetch paginated student data
   const { data: pageResult, isLoading } = useQuery<PagedResult<Student>>({
     queryKey: ["students", page, debouncedSearch, course, year, gender, sortField, sortOrder],
@@ -62,6 +68,7 @@ export function StudentsPage() {
     onSuccess: () => {
       toast.success("Student deleted successfully");
       queryClient.invalidateQueries({ queryKey: ["students"] });
+      queryClient.invalidateQueries({ queryKey: ["stats"] });
       // If the last item on the page is deleted, slide back one page
       if (pageResult?.data.length === 1 && page > 1) {
         setPage(page - 1);
@@ -124,6 +131,75 @@ export function StudentsPage() {
           <Plus className="h-4 w-4" />
           Add Student
         </button>
+      </div>
+
+      {/* Analytics Summary Cards (Dynamic Database Stats) */}
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Total Students */}
+        <div className="rounded-xl border border-neutral-900 bg-neutral-900/30 p-5 flex items-center justify-between shadow-sm">
+          <div>
+            <p className="text-xs font-medium text-neutral-500 uppercase tracking-wider">Total Enrolled</p>
+            <h4 className="text-2xl font-bold text-white mt-1.5">{stats?.total ?? 0}</h4>
+            <p className="text-xxs text-neutral-400 mt-0.5">Active Student Files</p>
+          </div>
+          <div className="rounded-lg bg-teal-500/10 p-3 text-teal-400 border border-teal-500/20">
+            <Users className="h-5 w-5" />
+          </div>
+        </div>
+
+        {/* Courses Offered */}
+        <div className="rounded-xl border border-neutral-900 bg-neutral-900/30 p-5 flex items-center justify-between shadow-sm">
+          <div>
+            <p className="text-xs font-medium text-neutral-500 uppercase tracking-wider">Active Courses</p>
+            <h4 className="text-2xl font-bold text-white mt-1.5">{stats?.courses?.length ?? 0}</h4>
+            <p className="text-xxs text-neutral-400 mt-0.5">Unique Programs</p>
+          </div>
+          <div className="rounded-lg bg-purple-500/10 p-3 text-purple-400 border border-purple-500/20">
+            <BookOpen className="h-5 w-5" />
+          </div>
+        </div>
+
+        {/* Year Distribution */}
+        <div className="rounded-xl border border-neutral-900 bg-neutral-900/30 p-5 flex items-center justify-between shadow-sm">
+          <div>
+            <p className="text-xs font-medium text-neutral-500 uppercase tracking-wider">Year Breakdown</p>
+            <div className="flex gap-2.5 mt-2.5">
+              {[1, 2, 3, 4].map((yr) => {
+                const count = stats?.year?.find((y) => y.year === yr)?.count ?? 0;
+                return (
+                  <div key={yr} className="text-center">
+                    <div className="text-xxs text-neutral-500">Yr {yr}</div>
+                    <div className="text-xs font-bold text-white mt-0.5">{count}</div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <div className="rounded-lg bg-blue-500/10 p-3 text-blue-400 border border-blue-500/20">
+            <Calendar className="h-5 w-5" />
+          </div>
+        </div>
+
+        {/* Gender Breakdown */}
+        <div className="rounded-xl border border-neutral-900 bg-neutral-900/30 p-5 flex items-center justify-between shadow-sm">
+          <div>
+            <p className="text-xs font-medium text-neutral-500 uppercase tracking-wider">Gender Ratio</p>
+            <div className="flex gap-4 mt-2.5">
+              {["MALE", "FEMALE", "OTHER"].map((g) => {
+                const count = stats?.gender?.find((x) => x.gender === g)?.count ?? 0;
+                return (
+                  <div key={g} className="text-center">
+                    <div className="text-xxs text-neutral-500">{g === "MALE" ? "Men" : g === "FEMALE" ? "Women" : "Other"}</div>
+                    <div className="text-xs font-bold text-white mt-0.5">{count}</div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <div className="rounded-lg bg-pink-500/10 p-3 text-pink-400 border border-pink-500/20">
+            <BarChart3 className="h-5 w-5" />
+          </div>
+        </div>
       </div>
 
       {/* Toolbar / Filters */}

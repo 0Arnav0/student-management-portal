@@ -251,3 +251,45 @@ export async function deleteStudent(req: Request, res: Response): Promise<void> 
 
   res.status(204).send();
 }
+
+export async function getStudentStats(_req: Request, res: Response): Promise<void> {
+  // Query 1: Total count
+  const [totalCountResult] = await db
+    .select({ value: count() })
+    .from(students);
+  const total = totalCountResult?.value || 0;
+
+  // Query 2: Gender distribution
+  const genderStats = await db
+    .select({
+      gender: students.gender,
+      count: count(),
+    })
+    .from(students)
+    .groupBy(students.gender);
+
+  // Query 3: Year distribution
+  const yearStats = await db
+    .select({
+      year: students.year,
+      count: count(),
+    })
+    .from(students)
+    .groupBy(students.year);
+
+  // Query 4: Course distribution
+  const courseStats = await db
+    .select({
+      course: students.course,
+      count: count(),
+    })
+    .from(students)
+    .groupBy(students.course);
+
+  res.json({
+    total,
+    gender: genderStats,
+    year: yearStats,
+    courses: courseStats,
+  });
+}

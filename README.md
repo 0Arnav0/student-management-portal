@@ -59,6 +59,34 @@ student-portal/
 
 ---
 
+## 🔌 API Endpoints Map
+
+All API requests are prefixed with `/api` and return standard JSON payloads.
+
+### Authentication (`/api/auth`)
+*   `POST /api/auth/login` - Sign in user and set secure cookie (Rate limited: max 5 requests per 15 min).
+*   `POST /api/auth/logout` - Clear JWT authentication cookie and log logout event.
+*   `GET /api/auth/me` - Retrieve current logged-in staff session details.
+
+### Student Registry (`/api/students`)
+*   `GET /api/students` - Fetch paginated student records with dynamic search, sorting, and filters.
+*   `GET /api/students/stats` - Fetch database aggregates for the analytics cards (Total count, Course count, Year breakdown, Gender ratio).
+*   `GET /api/students/:id` - Fetch details of a single student by ID.
+*   `POST /api/students` - Enroll a new student (accepts `multipart/form-data` for photo uploads).
+*   `PUT /api/students/:id` - Update existing student record details.
+*   `DELETE /api/students/:id` - Drop/Delete a student record from the system.
+
+### User/Staff Administration (`/api/users`)
+*   `GET /api/users` - List all staff users (Principal only).
+*   `POST /api/users` - Create a new staff account (Principal only).
+*   `PATCH /api/users/:id/active` - Toggle a staff user's active status (Principal only).
+
+### Metadata (`/api`)
+*   `GET /api/health` - Check API server system uptime and health check state.
+*   `GET /api/meta` - Fetch static dropdown metadata constants (COURSES, GENDERS, YEARS) and Cloudinary status.
+
+---
+
 ## 🚀 Local Setup & Configuration
 
 ### Prerequisites

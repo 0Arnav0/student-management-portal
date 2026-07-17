@@ -8,6 +8,7 @@ import {
   createStudent,
   updateStudent,
   deleteStudent,
+  getStudentStats,
 } from "../controllers/students.controller.js";
 import { apiRateLimiter } from "../middleware/rateLimiter.js";
 
@@ -17,6 +18,7 @@ export const studentsRouter = Router();
 studentsRouter.use(authenticate, apiRateLimiter);
 
 studentsRouter.get("/", asyncHandler(listStudents));
+studentsRouter.get("/stats", asyncHandler(getStudentStats));
 studentsRouter.get("/:id", asyncHandler(getStudent));
 studentsRouter.post("/", uploadPhoto, asyncHandler(createStudent));
 studentsRouter.put("/:id", uploadPhoto, asyncHandler(updateStudent));
