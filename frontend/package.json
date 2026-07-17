@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "npm run build -w packages/shared",
     "build": "vite build && node ../scripts/copy-dist.js",
     "preview": "vite preview"
   },
