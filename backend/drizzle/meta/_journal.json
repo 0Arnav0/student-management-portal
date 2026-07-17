@@ -1,0 +1,13 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1784312629721,
+      "tag": "0000_clever_the_santerians",
+      "breakpoints": true
+    }
+  ]
+}
