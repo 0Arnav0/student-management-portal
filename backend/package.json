@@ -7,8 +7,7 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "start": "node dist/index.js",
-    "prebuild": "npm run build -w packages/shared",
-    "build": "tsc",
+    "build": "tsc -p ../packages/shared/tsconfig.json && tsc",
     "db:generate": "drizzle-kit generate:pg",
     "db:migrate": "tsx src/db/migrate.ts",
     "db:studio": "drizzle-kit studio",
