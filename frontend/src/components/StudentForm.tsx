@@ -239,7 +239,8 @@ export function StudentForm({ onClose, student, meta }: StudentFormProps) {
                 type="date"
                 max={new Date().toISOString().split("T")[0]} // DOB must be in past
                 {...register("dob")}
-                className="mt-2 block w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2 text-sm text-neutral-300 focus:border-teal-500 focus:outline-none"
+                onClick={(e) => e.currentTarget.showPicker()}
+                className="mt-2 block w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2 text-sm text-neutral-300 focus:border-teal-500 focus:outline-none w-full"
               />
               {getErrorMessage("dob") && <p className="field-error">{getErrorMessage("dob")}</p>}
             </div>
