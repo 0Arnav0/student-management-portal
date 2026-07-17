@@ -236,11 +236,10 @@ export function StudentForm({ onClose, student, meta }: StudentFormProps) {
             <div>
               <label className="block text-xs font-medium text-neutral-400 uppercase tracking-wider">Date of Birth</label>
               <input
-                type="date"
-                max={new Date().toISOString().split("T")[0]} // DOB must be in past
+                type="text"
+                placeholder="YYYY-MM-DD (e.g. 2004-05-14)"
                 {...register("dob")}
-                onClick={(e) => e.currentTarget.showPicker()}
-                className="mt-2 block w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2 text-sm text-neutral-300 focus:border-teal-500 focus:outline-none w-full"
+                className="mt-2 block w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2 text-sm text-white placeholder-neutral-700 focus:border-teal-500 focus:outline-none w-full"
               />
               {getErrorMessage("dob") && <p className="field-error">{getErrorMessage("dob")}</p>}
             </div>
