@@ -19,8 +19,6 @@ const PUBLIC_DIR = path.join(__dirname, "..", "public");
 
 const app = express();
 
-app.set("trust proxy", 1); // Trust only the first proxy (Railway load balancer)
-
 app.use(express.json());
 app.use(cookieParser()); // Parses incoming JWT auth cookie
 
