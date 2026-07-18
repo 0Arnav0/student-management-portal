@@ -4,6 +4,8 @@ A production-ready, full-stack Student Management System built as a unified web 
 
 This repository is a modern rebuild of a legacy codebase, migrating from **Angular + Prisma** to a high-performance **React 19 + TypeScript + Drizzle ORM** architecture inside a type-safe npm workspaces monorepo.
 
+Project link:- student-management-portal.up.railway.app
+
 ---
 
 ## 🛠️ Tech Stack
