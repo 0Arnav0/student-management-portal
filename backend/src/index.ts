@@ -54,4 +54,6 @@ ensurePrincipal()
       logger.info(`Server successfully listening on port ${env.PORT}`);
     });
   });
+
+// Redeployment trigger: force rebuild of monorepo containing new frontend assets
 export default app;
