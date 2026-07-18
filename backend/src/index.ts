@@ -55,5 +55,4 @@ ensurePrincipal()
     });
   });
 
-// Redeployment trigger: force rebuild of monorepo containing new frontend assets
 export default app;

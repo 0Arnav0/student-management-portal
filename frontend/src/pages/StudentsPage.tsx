@@ -137,10 +137,7 @@ export function StudentsPage() {
       {/* Analytics Summary Cards (Dynamic Database Stats) */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {/* Total Students */}
-        <div
-          onClick={() => setActiveStatsModal("total")}
-          className="rounded-xl border border-neutral-900 bg-neutral-900/30 p-5 flex items-center justify-between shadow-sm cursor-pointer hover:border-teal-500/30 hover:bg-neutral-900/50 hover:scale-[1.01] transition-all duration-200 active:scale-[0.99]"
-        >
+        <div className="rounded-xl border border-neutral-900 bg-neutral-900/30 p-5 flex items-center justify-between shadow-sm">
           <div>
             <p className="text-xs font-medium text-neutral-500 uppercase tracking-wider">Total Enrolled</p>
             <h4 className="text-2xl font-bold text-white mt-1.5">{stats?.total ?? 0}</h4>
@@ -468,31 +465,6 @@ export function StudentsPage() {
 
             {/* Modal Body / Charts */}
             <div className="p-6 overflow-y-auto space-y-6">
-              {/* TOTAL STATS PANEL */}
-              {activeStatsModal === "total" && (
-                <div className="space-y-4">
-                  <div className="text-center py-6">
-                    <p className="text-xs font-medium text-neutral-500 uppercase tracking-wider">Total Active Profiles</p>
-                    <h2 className="text-6xl font-bold text-teal-400 mt-2">{stats.total}</h2>
-                    <p className="text-xs text-neutral-400 mt-2">Database state: Synchronized & Healthy</p>
-                  </div>
-                  <div className="rounded-lg border border-neutral-800 bg-neutral-950 p-4 space-y-2">
-                    <div className="flex justify-between text-xs">
-                      <span className="text-neutral-400">Database Engine</span>
-                      <span className="text-neutral-200">PostgreSQL</span>
-                    </div>
-                    <div className="flex justify-between text-xs">
-                      <span className="text-neutral-400">Object Relational Mapper</span>
-                      <span className="text-neutral-200">Drizzle ORM</span>
-                    </div>
-                    <div className="flex justify-between text-xs">
-                      <span className="text-neutral-400">Sequence Cache</span>
-                      <span className="text-neutral-200">student_admission_seq</span>
-                    </div>
-                  </div>
-                </div>
-              )}
-
               {/* COURSES CHARTS PANEL */}
               {activeStatsModal === "courses" && (
                 <div className="space-y-5">
