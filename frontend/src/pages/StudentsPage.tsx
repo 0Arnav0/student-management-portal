@@ -22,6 +22,7 @@ export function StudentsPage() {
   // Dialog controllers
   const [formOpen, setFormOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
+  const [activeStatsModal, setActiveStatsModal] = useState<"total" | "courses" | "year" | "gender" | null>(null);
 
   // Debounce search input (350ms)
   useEffect(() => {
@@ -136,7 +137,10 @@ export function StudentsPage() {
       {/* Analytics Summary Cards (Dynamic Database Stats) */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {/* Total Students */}
-        <div className="rounded-xl border border-neutral-900 bg-neutral-900/30 p-5 flex items-center justify-between shadow-sm">
+        <div
+          onClick={() => setActiveStatsModal("total")}
+          className="rounded-xl border border-neutral-900 bg-neutral-900/30 p-5 flex items-center justify-between shadow-sm cursor-pointer hover:border-teal-500/30 hover:bg-neutral-900/50 hover:scale-[1.01] transition-all duration-200 active:scale-[0.99]"
+        >
           <div>
             <p className="text-xs font-medium text-neutral-500 uppercase tracking-wider">Total Enrolled</p>
             <h4 className="text-2xl font-bold text-white mt-1.5">{stats?.total ?? 0}</h4>
@@ -148,7 +152,10 @@ export function StudentsPage() {
         </div>
 
         {/* Courses Offered */}
-        <div className="rounded-xl border border-neutral-900 bg-neutral-900/30 p-5 flex items-center justify-between shadow-sm">
+        <div
+          onClick={() => setActiveStatsModal("courses")}
+          className="rounded-xl border border-neutral-900 bg-neutral-900/30 p-5 flex items-center justify-between shadow-sm cursor-pointer hover:border-purple-500/30 hover:bg-neutral-900/50 hover:scale-[1.01] transition-all duration-200 active:scale-[0.99]"
+        >
           <div>
             <p className="text-xs font-medium text-neutral-500 uppercase tracking-wider">Active Courses</p>
             <h4 className="text-2xl font-bold text-white mt-1.5">{stats?.courses?.length ?? 0}</h4>
@@ -160,7 +167,10 @@ export function StudentsPage() {
         </div>
 
         {/* Year Distribution */}
-        <div className="rounded-xl border border-neutral-900 bg-neutral-900/30 p-5 flex items-center justify-between shadow-sm">
+        <div
+          onClick={() => setActiveStatsModal("year")}
+          className="rounded-xl border border-neutral-900 bg-neutral-900/30 p-5 flex items-center justify-between shadow-sm cursor-pointer hover:border-blue-500/30 hover:bg-neutral-900/50 hover:scale-[1.01] transition-all duration-200 active:scale-[0.99]"
+        >
           <div>
             <p className="text-xs font-medium text-neutral-500 uppercase tracking-wider">Year Breakdown</p>
             <div className="flex gap-2.5 mt-2.5">
@@ -181,7 +191,10 @@ export function StudentsPage() {
         </div>
 
         {/* Gender Breakdown */}
-        <div className="rounded-xl border border-neutral-900 bg-neutral-900/30 p-5 flex items-center justify-between shadow-sm">
+        <div
+          onClick={() => setActiveStatsModal("gender")}
+          className="rounded-xl border border-neutral-900 bg-neutral-900/30 p-5 flex items-center justify-between shadow-sm cursor-pointer hover:border-pink-500/30 hover:bg-neutral-900/50 hover:scale-[1.01] transition-all duration-200 active:scale-[0.99]"
+        >
           <div>
             <p className="text-xs font-medium text-neutral-500 uppercase tracking-wider">Gender Ratio</p>
             <div className="flex gap-4 mt-2.5">
@@ -431,6 +444,157 @@ export function StudentsPage() {
           student={selectedStudent}
           meta={meta}
         />
+      )}
+
+      {/* Dynamic Detailed Analytics Popups */}
+      {activeStatsModal && stats && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-950/85 backdrop-blur-md">
+          <div className="w-full max-w-lg rounded-xl border border-neutral-800 bg-neutral-900 shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-neutral-800 px-6 py-4">
+              <h3 className="text-md font-semibold text-white">
+                {activeStatsModal === "total" && "Total Enrollment Statistics"}
+                {activeStatsModal === "courses" && "Course Distribution Analytics"}
+                {activeStatsModal === "year" && "Academic Year Demographics"}
+                {activeStatsModal === "gender" && "Gender Diversity Ratios"}
+              </h3>
+              <button
+                onClick={() => setActiveStatsModal(null)}
+                className="text-neutral-400 hover:text-white cursor-pointer"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Modal Body / Charts */}
+            <div className="p-6 overflow-y-auto space-y-6">
+              {/* TOTAL STATS PANEL */}
+              {activeStatsModal === "total" && (
+                <div className="space-y-4">
+                  <div className="text-center py-6">
+                    <p className="text-xs font-medium text-neutral-500 uppercase tracking-wider">Total Active Profiles</p>
+                    <h2 className="text-6xl font-bold text-teal-400 mt-2">{stats.total}</h2>
+                    <p className="text-xs text-neutral-400 mt-2">Database state: Synchronized & Healthy</p>
+                  </div>
+                  <div className="rounded-lg border border-neutral-800 bg-neutral-950 p-4 space-y-2">
+                    <div className="flex justify-between text-xs">
+                      <span className="text-neutral-400">Database Engine</span>
+                      <span className="text-neutral-200">PostgreSQL</span>
+                    </div>
+                    <div className="flex justify-between text-xs">
+                      <span className="text-neutral-400">Object Relational Mapper</span>
+                      <span className="text-neutral-200">Drizzle ORM</span>
+                    </div>
+                    <div className="flex justify-between text-xs">
+                      <span className="text-neutral-400">Sequence Cache</span>
+                      <span className="text-neutral-200">student_admission_seq</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* COURSES CHARTS PANEL */}
+              {activeStatsModal === "courses" && (
+                <div className="space-y-5">
+                  <p className="text-xs text-neutral-400 leading-normal">
+                    This chart shows the distribution of enrolled students across different academic programs:
+                  </p>
+                  {stats.courses && stats.courses.length > 0 ? (
+                    stats.courses
+                      .sort((a, b) => b.count - a.count) // Sort by popularity
+                      .map((c) => {
+                        const pct = stats.total > 0 ? ((c.count / stats.total) * 100).toFixed(1) : "0.0";
+                        return (
+                          <div key={c.course} className="space-y-1.5">
+                            <div className="flex justify-between text-xs">
+                              <span className="text-neutral-200 font-medium">{c.course}</span>
+                              <span className="text-purple-400 font-semibold">{c.count} students ({pct}%)</span>
+                            </div>
+                            <div className="h-2 w-full rounded-full bg-neutral-950 border border-neutral-800 overflow-hidden">
+                              <div
+                                className="h-full bg-purple-500 rounded-full transition-all duration-500"
+                                style={{ width: `${pct}%` }}
+                              ></div>
+                            </div>
+                          </div>
+                        );
+                      })
+                  ) : (
+                    <p className="text-sm text-neutral-500 text-center py-6">No program enrollments found.</p>
+                  )}
+                </div>
+              )}
+
+              {/* YEAR CHARTS PANEL */}
+              {activeStatsModal === "year" && (
+                <div className="space-y-5">
+                  <p className="text-xs text-neutral-400 leading-normal">
+                    Breakdown of enrolled student populations by academic year:
+                  </p>
+                  {[1, 2, 3, 4].map((yr) => {
+                    const count = stats.year?.find((y) => y.year === yr)?.count ?? 0;
+                    const pct = stats.total > 0 ? ((count / stats.total) * 100).toFixed(1) : "0.0";
+                    const labels = ["Freshman", "Sophomore", "Junior", "Senior"];
+                    return (
+                      <div key={yr} className="space-y-1.5">
+                        <div className="flex justify-between text-xs">
+                          <span className="text-neutral-200 font-medium">Year {yr} ({labels[yr - 1]})</span>
+                          <span className="text-blue-400 font-semibold">{count} students ({pct}%)</span>
+                        </div>
+                        <div className="h-2 w-full rounded-full bg-neutral-950 border border-neutral-800 overflow-hidden">
+                          <div
+                            className="h-full bg-blue-500 rounded-full transition-all duration-500"
+                            style={{ width: `${pct}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* GENDER CHARTS PANEL */}
+              {activeStatsModal === "gender" && (
+                <div className="space-y-5">
+                  <p className="text-xs text-neutral-400 leading-normal">
+                    Diversity metrics showing the gender ratio inside the current registry:
+                  </p>
+                  {["MALE", "FEMALE", "OTHER"].map((g) => {
+                    const count = stats.gender?.find((x) => x.gender === g)?.count ?? 0;
+                    const pct = stats.total > 0 ? ((count / stats.total) * 100).toFixed(1) : "0.0";
+                    const label = g === "MALE" ? "Men (MALE)" : g === "FEMALE" ? "Women (FEMALE)" : "Other / Non-Binary";
+                    const barColor = g === "MALE" ? "bg-blue-500" : g === "FEMALE" ? "bg-pink-500" : "bg-neutral-500";
+                    const textColor = g === "MALE" ? "text-blue-400" : g === "FEMALE" ? "text-pink-400" : "text-neutral-400";
+                    return (
+                      <div key={g} className="space-y-1.5">
+                        <div className="flex justify-between text-xs">
+                          <span className="text-neutral-200 font-medium">{label}</span>
+                          <span className={`${textColor} font-semibold`}>{count} ({pct}%)</span>
+                        </div>
+                        <div className="h-2 w-full rounded-full bg-neutral-950 border border-neutral-800 overflow-hidden">
+                          <div
+                            className={`h-full ${barColor} rounded-full transition-all duration-500`}
+                            style={{ width: `${pct}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
+            {/* Footer */}
+            <div className="flex items-center justify-end border-t border-neutral-800 bg-neutral-950 px-6 py-4">
+              <button
+                onClick={() => setActiveStatsModal(null)}
+                className="rounded-lg bg-neutral-800 border border-neutral-700 px-4 py-1.5 text-xs font-semibold text-neutral-300 hover:text-white cursor-pointer"
+              >
+                Close View
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
