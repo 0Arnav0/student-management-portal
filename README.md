@@ -149,9 +149,3 @@ npm run start -w backend
 Open `http://localhost:3000` in your browser.
 
 ---
-
-## 📑 Interview Rationale (Why this code stands out)
-
-*   **Drizzle vs. Prisma:** Prisma utilizes a heavy, compiled Rust engine binary (~8 MB) which adds substantial cold-start time to serverless environments (like Vercel/Render). Drizzle is a lightweight SQL-first library (~50 KB) executing JavaScript-to-SQL compile queries with zero overhead, giving developers full SQL flexibility without losing type safety.
-*   **React Context for Auth:** Instead of adding heavy state managers like Redux or Zustand, the project leverages React's built-in Context API (`useContext`) for client authentication details, keeping the bundle size small. For server caching and synchronization, it offloads API queries to TanStack Query.
-*   **TypeScript Monorepo:** Demonstrates experience with monorepos (npm workspaces), managing configurations (`tsconfig` inheritance), and structuring large-scale codebases to share validation logic between clients and servers.
