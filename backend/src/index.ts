@@ -55,5 +55,5 @@ ensurePrincipal()
     });
   });
 
-// Rebuild trigger: updated frontend placeholders
+// Rebuild trigger: sidebar layout and placeholders update
 export default app;
