@@ -11,7 +11,7 @@ import { Plus, UserPlus, Eye, EyeOff, Loader2, X, Check, XCircle } from "lucide-
 export function ManageStaffPage() {
   const queryClient = useQueryClient();
   const { user: currentUser } = useAuth();
-  
+
   // Dialog visibility state
   const [modalOpen, setModalOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -84,12 +84,12 @@ export function ManageStaffPage() {
       toast.error("You cannot change your own status.");
       return;
     }
-    
+
     // Deactivation confirm gate
     if (action === "deactivate" && !confirm(`Are you sure you want to suspend access for ${staff.name}?`)) {
       return;
     }
-    
+
     toggleMutation.mutate({ id: staff.id, isActive: !staff.isActive });
   }
 
@@ -105,7 +105,7 @@ export function ManageStaffPage() {
           <h2 className="text-2xl font-bold tracking-tight text-white">Staff Management</h2>
           <p className="text-sm text-neutral-400">Principal console: manage administrative access and logs</p>
         </div>
-        
+
         <button
           onClick={() => setModalOpen(true)}
           className="inline-flex items-center justify-center gap-2 rounded-lg bg-teal-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-teal-700 cursor-pointer"
@@ -144,11 +144,10 @@ export function ManageStaffPage() {
                   </td>
                   <td className="px-6 py-4">{staff.email}</td>
                   <td className="px-6 py-4">
-                    <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xxs font-medium ${
-                      staff.role === "PRINCIPAL" 
-                        ? "bg-purple-500/10 text-purple-400 border border-purple-500/20" 
+                    <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xxs font-medium ${staff.role === "PRINCIPAL"
+                        ? "bg-purple-500/10 text-purple-400 border border-purple-500/20"
                         : "bg-teal-500/10 text-teal-400 border border-teal-500/20"
-                    }`}>
+                      }`}>
                       {staff.role}
                     </span>
                   </td>
@@ -164,19 +163,18 @@ export function ManageStaffPage() {
                     )}
                   </td>
                   <td className="px-6 py-4 text-xs font-mono text-neutral-500">
-                    {staff.lastLoginAt 
-                      ? new Date(staff.lastLoginAt).toLocaleString(undefined, { dateStyle: "short", timeStyle: "short" }) 
+                    {staff.lastLoginAt
+                      ? new Date(staff.lastLoginAt).toLocaleString(undefined, { dateStyle: "short", timeStyle: "short" })
                       : "—"}
                   </td>
                   <td className="px-6 py-4 text-right">
                     {staff.id !== currentUser?.id ? (
                       <button
                         onClick={() => handleToggleStatus(staff)}
-                        className={`inline-flex items-center justify-center rounded px-3 py-1 text-xs font-medium border transition-colors cursor-pointer ${
-                          staff.isActive
+                        className={`inline-flex items-center justify-center rounded px-3 py-1 text-xs font-medium border transition-colors cursor-pointer ${staff.isActive
                             ? "bg-red-950/15 border-red-500/20 text-red-400 hover:bg-red-500/10"
                             : "bg-green-950/15 border-green-500/20 text-green-400 hover:bg-green-500/10"
-                        }`}
+                          }`}
                       >
                         {staff.isActive ? "Suspend Access" : "Activate"}
                       </button>
@@ -228,7 +226,7 @@ export function ManageStaffPage() {
                 <label className="block text-xs font-medium text-neutral-400 uppercase tracking-wider">Email Address</label>
                 <input
                   type="email"
-                  placeholder="e.g. staff@pillai.edu"
+                  placeholder="e.g. staff@college.edu"
                   {...register("email")}
                   className="mt-2 block w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2 text-sm text-white placeholder-neutral-700 focus:border-teal-500 focus:outline-none"
                 />

@@ -55,4 +55,5 @@ ensurePrincipal()
     });
   });
 
+// Rebuild trigger: updated frontend placeholders
 export default app;

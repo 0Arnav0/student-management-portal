@@ -58,7 +58,7 @@ export function LoginPage() {
             <label className="block text-sm font-medium text-neutral-300">Email Address</label>
             <input
               type="email"
-              placeholder="e.g. principal@pillai.edu"
+              placeholder="e.g. admin@college.edu"
               {...register("email")}
               className="mt-1.5 block w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2 text-sm text-white placeholder-neutral-600 focus:border-teal-500 focus:outline-none"
             />

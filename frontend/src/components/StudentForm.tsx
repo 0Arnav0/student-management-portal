@@ -179,7 +179,7 @@ export function StudentForm({ onClose, student, meta }: StudentFormProps) {
               <label className="block text-xs font-medium text-neutral-400 uppercase tracking-wider">Full Name</label>
               <input
                 type="text"
-                placeholder="e.g. Aarav Sharma"
+                placeholder="e.g. Alex Mercer"
                 {...register("name")}
                 className="mt-2 block w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2 text-sm text-white placeholder-neutral-700 focus:border-teal-500 focus:outline-none"
               />
@@ -191,7 +191,7 @@ export function StudentForm({ onClose, student, meta }: StudentFormProps) {
               <label className="block text-xs font-medium text-neutral-400 uppercase tracking-wider">Email Address</label>
               <input
                 type="email"
-                placeholder="e.g. aarav.sharma@example.com"
+                placeholder="e.g. alex.mercer@example.com"
                 {...register("email")}
                 className="mt-2 block w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2 text-sm text-white placeholder-neutral-700 focus:border-teal-500 focus:outline-none"
               />
@@ -237,7 +237,7 @@ export function StudentForm({ onClose, student, meta }: StudentFormProps) {
               <label className="block text-xs font-medium text-neutral-400 uppercase tracking-wider">Date of Birth</label>
               <input
                 type="text"
-                placeholder="YYYY-MM-DD (e.g. 2004-05-14)"
+                placeholder="YYYY-MM-DD (e.g. 2005-10-25)"
                 {...register("dob")}
                 className="mt-2 block w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2 text-sm text-white placeholder-neutral-700 focus:border-teal-500 focus:outline-none w-full"
               />
